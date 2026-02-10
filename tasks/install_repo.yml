@@ -3,7 +3,7 @@
   when: (not __installed_bin.stat.exists) or elasticsearch_install_force
   block:
     - name: "Debian tasks"
-      when: ansible_os_family == 'Debian'
+      when: ansible_facts.os_family == 'Debian'
       block:
         - name: "DEBIAN | Ensure dependencies are installed."
           ansible.builtin.package:
@@ -15,7 +15,7 @@
           retries: 12
           delay: 10
           until: __pkg_result is success
-          when: ansible_os_family == 'Debian'
+          when: ansible_facts.os_family == 'Debian'
 
         - name: "DEBIAN | Add Elasticsearch GPG key"
           ansible.builtin.get_url:
